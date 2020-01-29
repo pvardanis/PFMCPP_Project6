@@ -68,6 +68,7 @@ struct Struct1                                //4
 {
     T* compare(T* a, T* b) //5
     {
+        FIXME check for nullptr before use!
         if( a->value < b->value ) return a;
         if( a->value > b->value ) return b;
         return nullptr;
@@ -79,6 +80,7 @@ struct U
     float t1 { 0 }, t2 { 0 };
     float t1Update(float* t1_)      //12
     {
+        FIXME check for nullptr before use!
         std::cout << "U's t1 value: " << t1 << std::endl;
         t1 = *t1_;
         std::cout << "U's t1 updated value: " << t1 << std::endl;
@@ -106,6 +108,7 @@ struct Struct2
 {
     static float t1Update(U* that, float* t1_ )        //10
     {
+        FIXME check for nullptr before use!
         std::cout << "U's t1 value: " << that->t1 << std::endl;
         that->t1 = *t1_;
         std::cout << "U's t1 updated value: " << that->t1 << std::endl;
