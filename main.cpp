@@ -73,9 +73,10 @@ struct Struct1                                //4
         if (a != nullptr && b != nullptr)
         {
             if( a->value < b->value ) return a;
-            if( a->value > b->value ) return b;     
+            if( a->value > b->value ) return b;   
+            return nullptr;
         }
-        return nullptr;
+        return nullptr; 
     }
 };
 
@@ -106,7 +107,7 @@ struct U
             std::cout << "U's t2 updated value: " << t2 << std::endl;
             return t2 * t1;
         }
-        //we don't need an else {} here because 107 will exit the if() block
+        //we don't need an else {} here because 107 will exit the if() block (that's true)
         return 0;
         
     }
@@ -159,7 +160,7 @@ int main()
     }
     else
     {
-        std::cout << "Pointer is null!" << std::endl; FIXME pointer is null OR? What else does it mean if it's null?
+        std::cout << "a equals b, or one of them is nullptr" << std::endl; //FIXME pointer is null OR? What else does it mean if it's null?
     }
     
 
