@@ -106,10 +106,9 @@ struct U
             std::cout << "U's t2 updated value: " << t2 << std::endl;
             return t2 * t1;
         }
-        else
-        {
-            return 0;
-        }
+        //we don't need an else {} here because 107 will exit the if() block
+        return 0;
+        
     }
 };
 
@@ -142,11 +141,8 @@ struct Struct2
             std::cout << "t1: " << that -> t1 << " t2: " << that -> t2 << std::endl;
             return that->t2 * that->t1;
         }
-        else
-        {
-            return 0.f;
-        }
         
+        return 0.f;
     }
 };
         
@@ -163,7 +159,7 @@ int main()
     }
     else
     {
-        std::cout << "Pointer is null!" << std::endl;
+        std::cout << "Pointer is null!" << std::endl; FIXME pointer is null OR? What else does it mean if it's null?
     }
     
 
