@@ -36,13 +36,10 @@ struct T
 
 struct Struct1                                //4
 {
-    T* compare(T* a, T* b) //5
+    T* compare(T& a, T& b) //5
     {
-        if (a != nullptr && b != nullptr)
-        {
-            if( a->value < b->value ) return a;
-            if( a->value > b->value ) return b;   
-        }
+        if( a.value < b.value ) return &a;
+        if( a.value > b.value ) return &b;   
         return nullptr; 
     }
 };
@@ -109,7 +106,7 @@ int main()
     T p2(3.2f, "Matkat");                                             //6
     
     Struct1 f;                                            //7
-    auto* smaller = f.compare(&p1, &p2);           
+    auto* smaller = f.compare(p1, p2);           
     if (smaller != nullptr)
     {
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9
