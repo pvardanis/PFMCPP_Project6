@@ -54,66 +54,121 @@ Create a branch named Part1
 
 #include <iostream>
 #include <string>
+#include <assert.h>
+
 struct T
 {
-    T(<#type name#> v, const char* <#variable name#>)   //1
-    //2
-    //3
+    float value;
+    std::string name;
+    T(float v, const char* myName) :
+    value(v),   //1
+    name(myName)
+    {}
 };
 
-struct <#structName1#>                                //4
+struct Struct1                                //4
 {
-    <#type name#> compare(<#type name#> a, <#type name#> b) //5
+    T* compare(T* a, T* b) //5
     {
-        if( a->value < b->value ) return a;
-        if( a->value > b->value ) return b;
-        return nullptr;
+        if (a != nullptr && b != nullptr)
+        {
+            if( a->value < b->value ) return a;
+            if( a->value > b->value ) return b;   
+        }
+        return nullptr; 
     }
 };
 
 struct U
 {
-    float <#name1#> { 0 }, <#name2#> { 0 };
-    <#returnType#> <#memberFunction#>(<#type name#>* <#updatedValue#>)      //12
+    float t1 { 0 }, t2 { 0 };
+    float t1Update(float* t1_)      //12
     {
+        if (t1_ != nullptr)
+        {
+            std::cout << "U's t1 value: " << t1 << std::endl;
+            t1 = *t1_;
+            std::cout << "U's t1 updated value: " << t1 << std::endl;
+            while( std::abs(t2 - t1) > 0.001f )
+            {
+                /*
+                write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
+                */
+                if (t2 > t1)
+                {
+                    t1 += 0.001f;
+                }
+                else
+                {
+                    t2 += 0.001f;
+                }            
+            }
+            std::cout << "U's t2 updated value: " << t2 << std::endl;
+            return t2 * t1;
+        }
+        //we don't need an else {} here because 107 will exit the if() block (that's true)
+        return 0;
         
     }
 };
 
-struct <#structname2#>
+struct Struct2
 {
-    static <#returntype#> <#staticFunctionA#>(U* that, <#type name#>* <#updatedValue#> )        //10
+    static float t1Update(U* that, float* t1_ )        //10
     {
-        std::cout << "U's <#name1#> value: " << that-><#name1#> << std::endl;
-        that-><#name1#> = <#updatedValue#>;
-        std::cout << "U's <#name1#> updated value: " << that-><#name1#> << std::endl;
-        while( std::abs(that-><#name2#> - that-><#name1#>) > 0.001f )
+        if (that != nullptr && t1_ != nullptr)
         {
-            /*
-             write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
-             */
-            that-><#name2#> += ;
+            std::cout << "U's t1 value: " << that->t1 << std::endl;
+            that->t1 = *t1_;
+            std::cout << "U's t1 updated value: " << that->t1 << std::endl;
+            
+            while( std::abs(that->t2 - that->t1) > 0.001f )
+            {
+                /*
+                write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
+                */
+                if (that->t2 > that->t1)
+                {
+                    // std::cout << "WOW" << std::endl;
+                    that->t1 += 0.001f;
+                }
+                else
+                {
+                    that->t2 += 0.001f;
+                }            
+            }
+            std::cout << "U's t2 updated value: " << that->t2 << std::endl;
+            std::cout << "t1: " << that -> t1 << " t2: " << that -> t2 << std::endl;
+            return that->t2 * that->t1;
         }
-        std::cout << "U's <#name2#> updated value: " << that-><#name2#> << std::endl;
-        return that-><#name2#> * that-><#name1#>;
+        
+        return 0.f;
     }
 };
         
 int main()
 {
-    T <#name1#>( , );                                             //6
-    T <#name2#>( , );                                             //6
+    T p1(4.5f, "Panos");                                             //6
+    T p2(3.2f, "Matkat");                                             //6
     
-    <#structName1#> f;                                            //7
-    auto* smaller = f.compare( , );                              //8
-    std::cout << "the smaller one is << " << smaller->name << std::endl; //9
+    Struct1 f;                                            //7
+    auto* smaller = f.compare(&p1, &p2);           
+    if (smaller != nullptr)
+    {
+        std::cout << "the smaller one is << " << smaller->name << std::endl; //9
+    }
+    else
+    {
+        std::cout << "a equals b, or one of them is nullptr" << std::endl; //FIXME pointer is null OR? What else does it mean if it's null?
+    }
     
-    U <#name3#>;
+
+    U u1;
     float updatedValue = 5.f;
-    std::cout << "[static func] <#name3#>'s multiplied values: " << <#structname2#>::<#staticFunctionA#>( , ) << std::endl;                  //11
+    std::cout << "[static func] u1's multiplied values: " << Struct2::t1Update(&u1, &updatedValue) << std::endl;                  //11
     
-    U <#name4#>;
-    std::cout << "[member func] <#name4#>'s multiplied values: " << <#name4#>.<#memberFunction#>( &updatedValue ) << std::endl;
+    U u2;
+    std::cout << "[member func] u2's multiplied values: " << u2.t1Update(&updatedValue) << std::endl;
 }
 
         
