@@ -54,6 +54,8 @@ Create a branch named Part1
 
 #include <iostream>
 #include <string>
+#include <assert.h>
+
 struct T
 {
     float value;
@@ -68,11 +70,9 @@ struct Struct1                                //4
 {
     T* compare(T* a, T* b) //5
     {
-        if (a != nullptr && b!= nullptr)
-        {
-            if( a->value < b->value ) return a;
-            if( a->value > b->value ) return b;
-        }
+        assert (a != nullptr && b != nullptr);
+        if( a->value < b->value ) return a;
+        if( a->value > b->value ) return b;
         return nullptr;
     }
 };
@@ -82,18 +82,15 @@ struct U
     float t1 { 0 }, t2 { 0 };
     float t1Update(float* t1_)      //12
     {
-        if (t1_ != nullptr)
-        {
-            std::cout << "U's t1 value: " << t1 << std::endl;
-            t1 = *t1_;    
-        }
-        
+        assert (t1_ != nullptr);
+        std::cout << "U's t1 value: " << t1 << std::endl;
+        t1 = *t1_;
         std::cout << "U's t1 updated value: " << t1 << std::endl;
         while( std::abs(t2 - t1) > 0.001f )
         {
             /*
-             write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
-             */
+            write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
+            */
             if (t2 > t1)
             {
                 t1 += 0.001f;
@@ -105,7 +102,6 @@ struct U
         }
         std::cout << "U's t2 updated value: " << t2 << std::endl;
         return t2 * t1;
-        
     }
 };
 
@@ -113,24 +109,16 @@ struct Struct2
 {
     static float t1Update(U* that, float* t1_ )        //10
     {
-        
-        if (that != nullptr)
-        {
-            std::cout << "U's t1 value: " << that->t1 << std::endl;
-        }
-
-        if (t1_ != nullptr)
-        {
-            that->t1 = *t1_;
-        }
-        
+        assert (that != nullptr && t1_ != nullptr);
+        std::cout << "U's t1 value: " << that->t1 << std::endl;
+        that->t1 = *t1_;
         std::cout << "U's t1 updated value: " << that->t1 << std::endl;
         
         while( std::abs(that->t2 - that->t1) > 0.001f )
         {
             /*
-             write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
-             */
+            write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
+            */
             if (that->t2 > that->t1)
             {
                 // std::cout << "WOW" << std::endl;
@@ -154,15 +142,12 @@ int main()
     
     Struct1 f;                                            //7
     auto* smaller = f.compare(&p1, &p2);           
-    if (smaller != nullptr)                   //8
-    {
-        std::cout << "the smaller one is << " << smaller->name << std::endl; //9
-    }
+    assert (smaller != nullptr);
+    std::cout << "the smaller one is << " << smaller->name << std::endl; //9
 
     U u1;
     float updatedValue = 5.f;
     std::cout << "[static func] u1's multiplied values: " << Struct2::t1Update(&u1, &updatedValue) << std::endl;                  //11
-    Struct2::t1Update(nullptr, nullptr);
     
     U u2;
     std::cout << "[member func] u2's multiplied values: " << u2.t1Update(&updatedValue) << std::endl;
