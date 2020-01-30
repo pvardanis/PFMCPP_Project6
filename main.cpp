@@ -114,12 +114,12 @@ struct Struct2
     static float t1Update(U* that, float* t1_ )        //10
     {
         
-        if (t1_ != nullptr)
+        if (that != nullptr)
         {
             std::cout << "U's t1 value: " << that->t1 << std::endl;
         }
 
-        if (that != nullptr)
+        if (t1_ != nullptr)
         {
             that->t1 = *t1_;
         }
