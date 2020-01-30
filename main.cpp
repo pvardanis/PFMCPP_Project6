@@ -162,6 +162,7 @@ int main()
     U u1;
     float updatedValue = 5.f;
     std::cout << "[static func] u1's multiplied values: " << Struct2::t1Update(&u1, &updatedValue) << std::endl;                  //11
+    Struct2::t1Update(nullptr, nullptr);
     
     U u2;
     std::cout << "[member func] u2's multiplied values: " << u2.t1Update(&updatedValue) << std::endl;
