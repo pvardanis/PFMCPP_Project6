@@ -74,7 +74,6 @@ struct Struct1                                //4
         {
             if( a->value < b->value ) return a;
             if( a->value > b->value ) return b;   
-            return nullptr;
         }
         return nullptr; 
     }
