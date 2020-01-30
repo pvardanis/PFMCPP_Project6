@@ -47,7 +47,7 @@ struct Struct1                                //4
 struct U
 {
     float t1 { 0 }, t2 { 0 };
-    float t1Update(const float& t1_)      //12
+    float t1Update(const float& t1_) FIXME pass primvites by value unless you really need to pass by ref     //12
     {
         std::cout << "U's t1 value: " << t1 << std::endl;
         t1 = t1_;
@@ -73,7 +73,7 @@ struct U
 
 struct Struct2
 {
-    static float t1Update(U& that, const float& t1_ )        //10
+    static float t1Update(U& that, const float& t1_ ) FIXME pass primvites by value unless you really need to pass by ref       //10
     {
         std::cout << "U's t1 value: " << that.t1 << std::endl;
         that.t1 = t1_;
