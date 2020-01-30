@@ -117,7 +117,11 @@ struct Struct2
         if (t1_ != nullptr)
         {
             std::cout << "U's t1 value: " << that->t1 << std::endl;
-            that->t1 = *t1_;    
+        }
+
+        if (that != nullptr)
+        {
+            that->t1 = *t1_;
         }
         
         std::cout << "U's t1 updated value: " << that->t1 << std::endl;
