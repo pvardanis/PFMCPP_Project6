@@ -70,9 +70,11 @@ struct Struct1                                //4
 {
     T* compare(T* a, T* b) //5
     {
-        assert (a != nullptr && b != nullptr);
-        if( a->value < b->value ) return a;
-        if( a->value > b->value ) return b;
+        if (a != nullptr && b != nullptr)
+        {
+            if( a->value < b->value ) return a;
+            if( a->value > b->value ) return b;     
+        }
         return nullptr;
     }
 };
@@ -82,26 +84,32 @@ struct U
     float t1 { 0 }, t2 { 0 };
     float t1Update(float* t1_)      //12
     {
-        assert (t1_ != nullptr);
-        std::cout << "U's t1 value: " << t1 << std::endl;
-        t1 = *t1_;
-        std::cout << "U's t1 updated value: " << t1 << std::endl;
-        while( std::abs(t2 - t1) > 0.001f )
+        if (t1_ != nullptr)
         {
-            /*
-            write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
-            */
-            if (t2 > t1)
+            std::cout << "U's t1 value: " << t1 << std::endl;
+            t1 = *t1_;
+            std::cout << "U's t1 updated value: " << t1 << std::endl;
+            while( std::abs(t2 - t1) > 0.001f )
             {
-                t1 += 0.001f;
+                /*
+                write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
+                */
+                if (t2 > t1)
+                {
+                    t1 += 0.001f;
+                }
+                else
+                {
+                    t2 += 0.001f;
+                }            
             }
-            else
-            {
-                t2 += 0.001f;
-            }            
+            std::cout << "U's t2 updated value: " << t2 << std::endl;
+            return t2 * t1;
         }
-        std::cout << "U's t2 updated value: " << t2 << std::endl;
-        return t2 * t1;
+        else
+        {
+            return 0;
+        }
     }
 };
 
@@ -109,29 +117,36 @@ struct Struct2
 {
     static float t1Update(U* that, float* t1_ )        //10
     {
-        assert (that != nullptr && t1_ != nullptr);
-        std::cout << "U's t1 value: " << that->t1 << std::endl;
-        that->t1 = *t1_;
-        std::cout << "U's t1 updated value: " << that->t1 << std::endl;
-        
-        while( std::abs(that->t2 - that->t1) > 0.001f )
+        if (that != nullptr && t1_ != nullptr)
         {
-            /*
-            write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
-            */
-            if (that->t2 > that->t1)
+            std::cout << "U's t1 value: " << that->t1 << std::endl;
+            that->t1 = *t1_;
+            std::cout << "U's t1 updated value: " << that->t1 << std::endl;
+            
+            while( std::abs(that->t2 - that->t1) > 0.001f )
             {
-                // std::cout << "WOW" << std::endl;
-                that->t1 += 0.001f;
+                /*
+                write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
+                */
+                if (that->t2 > that->t1)
+                {
+                    // std::cout << "WOW" << std::endl;
+                    that->t1 += 0.001f;
+                }
+                else
+                {
+                    that->t2 += 0.001f;
+                }            
             }
-            else
-            {
-                that->t2 += 0.001f;
-            }            
+            std::cout << "U's t2 updated value: " << that->t2 << std::endl;
+            std::cout << "t1: " << that -> t1 << " t2: " << that -> t2 << std::endl;
+            return that->t2 * that->t1;
         }
-        std::cout << "U's t2 updated value: " << that->t2 << std::endl;
-        std::cout << "t1: " << that -> t1 << "t2: " << that -> t2 << std::endl;
-        return that->t2 * that->t1;
+        else
+        {
+            return 0.f;
+        }
+        
     }
 };
         
@@ -142,8 +157,15 @@ int main()
     
     Struct1 f;                                            //7
     auto* smaller = f.compare(&p1, &p2);           
-    assert (smaller != nullptr);
-    std::cout << "the smaller one is << " << smaller->name << std::endl; //9
+    if (smaller != nullptr)
+    {
+        std::cout << "the smaller one is << " << smaller->name << std::endl; //9
+    }
+    else
+    {
+        std::cout << "Pointer is null!" << std::endl;
+    }
+    
 
     U u1;
     float updatedValue = 5.f;
