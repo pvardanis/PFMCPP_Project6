@@ -113,7 +113,7 @@ int main()
     }
     else
     {
-        std::cout << "p1 equals p2, or one of them is nullptr" << std::endl; 
+        std::cout << "p1 equals p2" << std::endl; 
     }
     
 
